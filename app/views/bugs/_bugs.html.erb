@@ -1,0 +1,11 @@
+<div class="pagination-container">
+  <%= will_paginate bugs %>
+</div>
+
+<% bugs.each do |bug|%>
+	<%= render(partial: 'bugs/bug', object: bug) %>
+<%end%>
+
+<div class="pagination-container">
+  <%= will_paginate bugs %>
+</div>

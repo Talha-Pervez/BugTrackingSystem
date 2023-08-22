@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <%= form_for(@project, html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <div class="form-group row">
+          <%= f.label :name, class: "col-md-2 col-form-label #{'text-danger' if @project.errors.has_key?(:name)}" %>
+          
+          <div class="col-md-10" >
+            <%= f.text_field :name,
+             class: "form-control #{'is-invalid' if @project.errors.has_key?(:name)}",
+              placeholder: "Name of Project", autofocus: true %>
+          </div>
+        </div>
+        <% if @project.errors.has_key?(:name) %>
+          <div class="error">
+            <%= @project.errors.full_message(:name, @project.errors[:name].first) %>
+          </div>
+        <% end %>
+    
+        <div class="form-group row mt-3">
+          <%= f.label :description, class: "col-md-2 col-form-label" %>
+          <div class="col-md-10">
+            <%= f.text_area :description, rows: 6, class: "form-control", placeholder: "Description of Project" %>
+          </div>
+        </div>
+
+        <div class="form-group row mt-3">
+          <%= f.label :deadline, class: "col-md-2 col-form-label" %>
+          <div class="col-md-10">
+            <%= f.date_field :deadline, class: "form-control", min: Date.today %>
+          </div>
+        </div>
+
+        <div class="form-group row mt-3">
+          <%= f.label :Choose_Users, class: "col-md-2 col-form-label" %>
+          <div class="col-md-10">
+            <%= f.select :user_ids,
+            options_for_select(User.where.not(signup_type: "manager")
+            .map { |user| [ "#{user.name} (#{user.signup_type})", user.id ] },
+            f.object.user_ids), {}, { multiple: true, size: 3, class: 'form-control' } %>
+          </div>
+        </div>
+
+        <div class="form-group row mt-3 text-center">
+          <div class="col-md-10 offset-md-2">
+            <%= f.submit "Save Project", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

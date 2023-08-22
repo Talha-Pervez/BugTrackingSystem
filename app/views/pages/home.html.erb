@@ -1,0 +1,17 @@
+<div class="container home-container", align="center">
+    <h1 class="homecontext">Welcome to Bug Tracking System</h1>
+    <p class="homecontext">
+      This is the home page of our bug tracking system. Start tracking and resolving bugs today!
+    </p>
+    <% if user_signed_in? %>
+      <p class="homebtn">
+        <%= button_to "Logout", destroy_user_session_path,
+         method: :delete, class: "btn btn-primary btn-xlarge logout-btn" %>
+      </p>
+    <% else %>
+      <p class="homebtn">
+        <%= link_to "Sign up for an account",
+         new_user_registration_path, class: "btn btn-primary btn-xlarge" %>
+      </p>
+    <% end %>
+  </div>

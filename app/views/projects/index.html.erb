@@ -1,0 +1,6 @@
+<h1 align="center">Listing of Projects</h1>
+<%= render 'shared/pagination', locals: { obj: @projects } %>
+
+<%=render 'project' ,obj: @projects%>
+
+<%= render 'shared/pagination', locals: { obj: @projects } %>

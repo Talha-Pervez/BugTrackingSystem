@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="card mt-3">
+    <div class="card-header ">
+        <strong><%= link_to bug.title, project_bug_path(@project, bug) %></strong>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Status:</strong> <%= bug.bug_status %></li>
+        <li class="list-group-item"><strong>Deadline:</strong> <%= bug.deadline %></li>
+      </ul>
+        <div class="card-footer text-muted">
+          Created: <%= time_ago_in_words(bug.created_at) %> ago by <%= bug.qa.name %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

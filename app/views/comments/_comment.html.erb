@@ -1,0 +1,22 @@
+<div class="card mt-3">
+	<div class="row card-body">
+		<div class="col-md-2 ju">
+			<section class="center">
+				<%=gravatar_for(comment.user, size:80)%>
+			</section>
+		</div>
+		<div class="col-md-10 bg-light">
+			<div class="row">
+				<div class="col-md-2">
+					<h4><%=comment.user.name%></h2>	
+				</div>
+				<div class="col-md-6">
+					<small>
+						<%= time_ago_in_words(comment.created_at)%> ago
+					</small>
+				</div>
+			</div>
+			<p><%= comment.description %></p>
+		</div>
+	</div>
+</div>

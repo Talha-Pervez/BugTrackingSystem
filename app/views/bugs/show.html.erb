@@ -1,0 +1,93 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      Bug Details
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= @bug.title %></h5>
+      <p class="card-text"><%= @bug.description %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <% if @bug.deadline.present? %>
+        <li class="list-group-item">
+          <strong>Deadline:</strong> <%= @bug.deadline.strftime('%Y-%m-%d') %>
+        </li>
+      <% end %>
+      <li class="list-group-item"><strong>Bug Type:</strong> <%= @bug.bug_type %></li>
+      <li class="list-group-item"><strong>Status:</strong> <%= @bug.bug_status %></li>
+      <li class="list-group-item"><strong>Project:</strong> <%= @bug.project.name %></li>
+      <li class="list-group-item"><strong>Assigned to:</strong>
+        <%= @bug.developer.name if @bug.developer %>
+      </li>
+    </ul>
+    <div class="card-footer text-muted">
+      Created: <%= time_ago_in_words(@bug.created_at) %> ago by <%= @bug.qa.name %>
+    </div>
+    <% if @bug.screenshot.file.present? %>
+      <div class="card-footer">
+        <h6 class="mb-0">Screenshots:</h6>
+        <%= image_tag @bug.screenshot.url, width: 300, height: 300 %>
+      </div>
+    <% else %>
+      <div class="card-footer">
+        <h6 class="mb-0">No Screenshots Attached</h6>
+      </div>
+    <% end %>
+    <div class="card-footer">
+      <div class="row" align="center">
+        <% if can?(:update, @bug)%>
+          <div class="col">
+            <%= link_to 'Edit', edit_project_bug_path(@bug.project, @bug), class: 'btn btn-primary' %>  
+          </div>
+        <%end%>
+        <% if can?(:delete, @bug) %>
+          <div class="col">
+            <%= button_to 'Delete Bug', project_bug_path(@bug.project, @bug),
+             method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this bug?' },
+              class: 'btn btn-danger' %>
+          </div>
+        <%end%>
+        <div class="col">
+          <%= link_to 'Back', project_path(@bug.project, @bug), class: 'btn btn-primary' %>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div>
+      <hr/>
+      <h3 align="center">Create a new comment: </h3>
+      <hr/>
+      <%= form_for([@project, @bug, @comment], html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <div class="form-group">
+          <div class="control-label">
+            <%= f.label :description,"Comment" %><br>
+          </div>
+          <div>
+            <%= f.text_area :description,row:8, class: "form-control", placeholder: "Enter comment" %>
+          </div>
+        </div> 
+        
+        <div class="form-group mt-3">
+          <div align="center">
+            <%= f.submit "Submit Comment", class: "btn btn-primary btn-xlarge btn-lg" %>
+          </div>
+        </div>
+      <% end %>
+      <hr/>
+    </div>
+  </div>
+  <% if @bug.comments.count !=0 %>
+    <hr/>
+    <h3 align="center">Comments</h3>
+    <hr/>
+    <%= render partial: 'comments/comments', object:@comments%>
+  <%else%>
+    <hr/>
+    <h3 align="center">No Comments yet</h3>
+    <hr/>
+  <%end%>
+</div>
+

@@ -1,0 +1,57 @@
+
+// Add additional CSS
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: blue;
+}
+
+.home-container{
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Vertically center elements */
+  align-items: center; /* Horizontally center elements */
+  height: 92vh;
+  background-image: url('assets/bug2.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+.homecontext{
+  color: white;
+}
+.homebtn{
+  background:black;
+}
+.error {
+  color: red;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style for individual pagination links */
+.pagination a {
+  padding: 5px 10px;
+  margin: 0 2px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+}
+
+/* Style for the active pagination link */
+.pagination .active a {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Style for disabled pagination links */
+.pagination .disabled a {
+  color: #aaa;
+  pointer-events: none;
+}
+.alert-alert { @extend .alert-danger; }
+.alert-notice { @extend .alert-success; }
